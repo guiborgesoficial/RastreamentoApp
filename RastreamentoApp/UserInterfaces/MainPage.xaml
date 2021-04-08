@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RastreamentoApp.MainPage" Title="ENCOMENDAS">
+
+    <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="0"/>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="1" BackgroundColor="LightGray" CornerRadius="45" IsClippedToBounds="true" Padding="-9" >
+                <SearchBar x:Name="btnProcurarEncomendasLista"  Placeholder="Procurar" BackgroundColor="LightGray"></SearchBar>
+            </Frame>
+        </Grid>
+        <ListView x:Name="listviewEncomendasAddGeral">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{Binding Codigo}" Detail="{Binding Value}" ImageSource="{Binding plusButton.png}">
+                        
+                    </ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid>
+            <ImageButton x:Name="btnAdicionarEncomenda" Grid.Column="3" Grid.Row="1" Scale="0.9" Source="plusButton.png" 
+            BackgroundColor="Transparent"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".95,.95,80,80" 
+            Clicked="btnAdicionarEncomenda_Clicked"
+        />
+        </Grid>
+    </StackLayout>
+</ContentPage>

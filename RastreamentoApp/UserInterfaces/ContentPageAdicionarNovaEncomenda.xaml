@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RastreamentoApp.UserInterfaces.ContentPageAdicionarNovaEncomenda">
+    <ContentPage.Content>
+        <StackLayout Padding="19">
+            <Label Text="Está quase!" FontAttributes="Bold" FontSize="Title" TextColor="RoyalBlue"></Label>
+            <Label Text="Adicione sua encomenda para prosseguir" FontAttributes="Bold"></Label>
+            
+            
+
+            <Label Text="Código" FontAttributes="Bold" FontSize="Medium" TextColor="RoyalBlue"></Label>
+            <Entry x:Name="entryCodigoRastreio" Placeholder="LB0123456789HK" Focused="entryCodigoRastreio_Focused"></Entry>
+            <Label Text="Descrição" FontAttributes="Bold" FontSize="Medium" TextColor="RoyalBlue"></Label>
+            <Entry x:Name="entryDescriçãoEncomenda" Placeholder="Produto 'X'"></Entry>
+
+            <Grid>
+                <Label Grid.Column="0" Grid.Row="0" Text="Você também pode adicionar o valor da sua encomenda" Padding="35"></Label>
+                <CheckBox x:Name="checkboxValor" Grid.Column="0" Grid.Row="0" Color="RoyalBlue" CheckedChanged="checkboxValor_CheckedChanged"></CheckBox>
+            </Grid>
+
+            <Entry x:Name="entryValorEncomenda" IsVisible="false" Placeholder="Digite o valor da encomenda aqui" Keyboard="Numeric"></Entry>
+            <Button x:Name="btnAdicionarEncomenda" Text="ADICIONAR" BackgroundColor="RoyalBlue" TextColor="White" Clicked="btnAdicionarEncomenda_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
