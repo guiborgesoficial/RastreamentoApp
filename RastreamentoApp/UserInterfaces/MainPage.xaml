@@ -23,6 +23,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Text="teste" Clicked="Button_Clicked">
+
+        </Button>
         <Grid>
             <ImageButton x:Name="btnAdicionarEncomenda" Grid.Column="3" Grid.Row="1" Scale="0.9" Source="plusButton.png" 
             BackgroundColor="Transparent"

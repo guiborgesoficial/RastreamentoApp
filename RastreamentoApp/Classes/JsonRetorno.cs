@@ -9,6 +9,12 @@ namespace RastreamentoApp.Classes
     {
         public partial class Encomendas
         {
+            [JsonProperty("Descrição do Produto")]
+            public string Descricao { get; set; }
+            [JsonProperty("Preço")]
+            public string Preço { get; set; }
+            [JsonProperty("Telefone")]
+            public string Telefone { get; set; }
             [JsonProperty("codigo")]
             public string Codigo { get; set; }
 
