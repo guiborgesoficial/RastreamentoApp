@@ -26,7 +26,6 @@ namespace RastreamentoApp.UserInterfaces
         private void btnAdicionarEncomenda_Clicked(object sender, EventArgs e)
         {
             //entry setado para não precisar digitar ao fazer testes
-            entryCodigoRastreio.Text = "LB388246110SE";
 
             if (!string.IsNullOrEmpty(entryCodigoRastreio.Text) && entryCodigoRastreio.Text.Length == 13)
             {
@@ -46,7 +45,7 @@ namespace RastreamentoApp.UserInterfaces
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.RequestFormat = DataFormat.Json;
-            IRestResponse response = client.Execute(request);
+            IRestResponse response = await client.ExecuteAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -74,10 +73,10 @@ namespace RastreamentoApp.UserInterfaces
 
             if (arquivo.Exists)
             {
-                using (StreamWriter sw = File.CreateText(arquivo.Path))
-                {
-                    sw.WriteAsync(Iresponse);
-                }
+                StreamWriter sw = File.CreateText(arquivo.Path);
+                await sw.WriteAsync(Iresponse);
+                sw.Close();
+                
                 DisplayAlert("Concluído", "Sua encomenda foi adicionada", "OK");
                 this.Navigation.PopModalAsync();
             }
