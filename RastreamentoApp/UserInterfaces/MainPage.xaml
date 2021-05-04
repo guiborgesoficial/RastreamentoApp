@@ -14,20 +14,22 @@
             </StackLayout>
             
             <ScrollView Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Padding="0,8,0,0">
-                <ListView x:Name="listviewEncomendasAddGeral" RowHeight="100">
+                <ListView x:Name="listviewEncomendasAddGeral" RowHeight="100" BackgroundColor="White">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Orientation="Horizontal" BackgroundColor="White">
-                                    <Image Source="plusButton.png" />
-                                    <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White">
-                                        <Label Text="{Binding Codigo}" TextColor="Black" FontAttributes="Bold"/>
-                                        <Label Text="{Binding Descricao}" TextColor="Black"/>
-                                        <Label Text="{Binding Preço}" TextColor="Green"/>
-                                        <Label Text="{Binding Telefone}" TextColor="Black"/>
+                                <Grid>
+                                    <Image Source="plusButton.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
+                                    <StackLayout BackgroundColor="Transparent" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3">
+                                        <Label Text="{Binding Codigo}" TextColor="Black" FontAttributes="Bold" Padding="0,10,0,0"/>
+                                        <Label Text="{Binding Descricao}" TextColor="Black" Padding="0,-5,0,0"/>
+                                        <Label Text="{Binding Preço}" TextColor="Green" Padding="0,-5,0,0"/>
+                                        <Label Text="{Binding Telefone}" TextColor="Black" Padding="0,-5,0,0"/>
                                     </StackLayout>
-                                    <Button BackgroundColor="White" TextColor="Blue" Text="Ver mais" FontAttributes="Bold" />
-                                </StackLayout>
+                                    <Label Text="Hong Kong" TextColor="Black" FontAttributes="Italic" Padding="0,10,0,0" Grid.Column="4" Grid.Row="0"></Label>
+                                    <Label Text="29 abr" FontSize="13" Grid.Column="4" Grid.Row="1" Padding="29,0,0,0"></Label>
+                                    <Label Text="13 dias" TextColor="Black" Grid.Column="4" Grid.Row="2" Padding="20,0,0,0"></Label>
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

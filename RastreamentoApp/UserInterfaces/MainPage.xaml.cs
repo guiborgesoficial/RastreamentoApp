@@ -14,8 +14,6 @@ namespace RastreamentoApp
     {
         private ObservableCollection<JsonRetorno.Encomendas> encomendas = new ObservableCollection<JsonRetorno.Encomendas>();
         private ObservableCollection<JsonRetorno.Evento> eventos = new ObservableCollection<JsonRetorno.Evento>();
-
-
         public MainPage()
         {
             InitializeComponent();
@@ -26,8 +24,9 @@ namespace RastreamentoApp
         {
             ContentPageAdicionarNovaEncomenda TelaAdicionarNovaEncomenda = new ContentPageAdicionarNovaEncomenda();
             Navigation.PushModalAsync(TelaAdicionarNovaEncomenda);
-            ConsultandoEncomendasInTracks();
 
+            encomendas.Clear();
+            ConsultandoEncomendasInTracks();
         }
 
         private void ConsultandoEncomendasInTracks()
