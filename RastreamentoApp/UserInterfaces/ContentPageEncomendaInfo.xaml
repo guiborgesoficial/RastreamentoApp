@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RastreamentoApp.UserInterfaces.ContentPageEncomendaInfo">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid BackgroundColor="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <ImageButton x:Name="btnVoltar" 
+                Source="voltarButton.png"
+                Scale="0.5"
+                BackgroundColor="Transparent"
+                Clicked="btnVoltar_Clicked"
+                Grid.Column="0" 
+                />
+
+                <Label Text="Descrição" TextColor="White" HorizontalOptions="Center" Grid.Column="1" Grid.ColumnSpan="5" Padding="0,13,0,0" FontAttributes="Bold" FontSize="Subtitle"></Label>
+
+                <ImageButton x:Name="btnCompartilhar" 
+                Source="compartilharButton.png"
+                Scale="0.5"
+                BackgroundColor="Transparent"
+                Clicked="btnCompartilhar_Clicked"
+                Grid.Column="6"
+                />
+
+                <ImageButton x:Name="btnEditar" 
+                Source="editarButton.png"
+                Scale="0.5"
+                BackgroundColor="Transparent"
+                Clicked="btnEditar_Clicked"
+                Grid.Column="7"
+                />
+            </Grid>
+
+            <Grid Grid.Row="1" BackgroundColor="Blue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"></ColumnDefinition>
+                    <ColumnDefinition Width="130"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="13 Dias" Padding="30,20,0,0" TextColor="White" Grid.Column="0"></Label>
+                <Label Text="LB12312AQSHK" Padding="20,20,0,0" TextColor="White" Grid.Column="1"></Label>
+                <Label Text="REMESSA INTERNACIONAL" Padding="20,10,0,0" TextColor="White" Grid.Column="2"></Label>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <ScrollView Grid.ColumnSpan="3">
+                    <ListView x:Name="listviewEncomendasInfo" BackgroundColor="White" RowHeight="100">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Label Text="26 abr" Grid.Column="0" TextColor="Black"></Label>
+                                        <Label Text="17:01" Grid.Column="0" TextColor="Black"></Label>
+                                        <Label Text="Image" Grid.Column="1" TextColor="Black"></Label>
+                                        <Label Text="Status" Grid.Column="2" TextColor="Black"></Label>
+                                        <Label Text="de" Grid.Column="2" Grid.ColumnSpan="2" TextColor="Black"></Label>
+                                        <Label Text="para" Grid.Column="2" Grid.ColumnSpan="2" TextColor="Black"></Label>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </Grid>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -53,21 +53,34 @@ namespace RastreamentoApp
         {
             var des = (JsonRetorno.Encomendas)Newtonsoft.Json.JsonConvert.DeserializeObject(Iresponse, typeof(JsonRetorno.Encomendas));
             ServiceEncomendas(des);
-            
         }
         private void ServiceEncomendas(JsonRetorno.Encomendas IresponseDeserializada)
         {
-            encomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone });
+            encomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos});
             listviewEncomendasAddGeral.ItemsSource = encomendas;
 
-            /*foreach (var infoEvento in IresponseDeserializada.Eventos)
+            for(int i = 0; i < IresponseDeserializada.Eventos.Count; i++)
             {
-                eventoListView.Data = infoEvento.Data[0].ToString();
-                eventoListView.Hora = infoEvento.Hora[0].ToString();
-                eventoListView.Local = infoEvento.Local[0].ToString();
-                eventoListView.Status = infoEvento.Status[0].ToString();
-                eventoListView.SubStatus = infoEvento.SubStatus;
-            }*/
+                eventos.Add(new JsonRetorno.Evento { Data = IresponseDeserializada.Eventos[i].Data, Hora = IresponseDeserializada.Eventos[i].Hora, Local = IresponseDeserializada.Eventos[i].Local, Status = IresponseDeserializada.Eventos[i].Status, SubStatus = IresponseDeserializada.Eventos[i].SubStatus });
+            }
+        }
+        public void MaisInfo(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+
+            ContentPageEncomendaInfo TelaEncomendaInfo = new ContentPageEncomendaInfo();
+            Navigation.PushModalAsync(TelaEncomendaInfo);
+            encomendas.Clear();
+        }
+
+        public void DeletarItem(object sender, EventArgs e)
+        {
+            var itemSelect = ((MenuItem)sender);
+
+            JsonRetorno.Encomendas item = ((JsonRetorno.Encomendas)itemSelect.CommandParameter);
+            encomendas.Remove(item);
+
+            File.Delete("/storage/emulated/0/Android/data/com.companyname.rastreamentoapp/TRACKS/" + item.Codigo + ".json");
         }
     }
 }

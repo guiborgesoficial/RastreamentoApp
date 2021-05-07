@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RastreamentoApp.MainPage" Title="ENCOMENDAS">
 
+    <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"></RowDefinition>
@@ -12,23 +13,32 @@
                     <SearchBar x:Name="btnProcurarEncomendasLista"  Placeholder="Procurar" BackgroundColor="LightGray"></SearchBar>
                 </Frame>
             </StackLayout>
-            
+
             <ScrollView Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Padding="0,8,0,0">
-                <ListView x:Name="listviewEncomendasAddGeral" RowHeight="100" BackgroundColor="White">
+                <ListView x:Name="listviewEncomendasAddGeral" RowHeight="100" BackgroundColor="White" IsPullToRefreshEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="MaisInfo"
+                                        CommandParameter="{Binding .}"
+                                        Text="Mais" />
+                                    <MenuItem Clicked="DeletarItem"
+                                        CommandParameter="{Binding .}"
+                                        Text="Excluir" IsDestructive="True" />
+                                </ViewCell.ContextActions>
                                 <Grid>
                                     <Image Source="plusButton.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
-                                    <StackLayout BackgroundColor="Transparent" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3">
-                                        <Label Text="{Binding Codigo}" TextColor="Black" FontAttributes="Bold" Padding="0,10,0,0"/>
-                                        <Label Text="{Binding Descricao}" TextColor="Black" Padding="0,-5,0,0"/>
-                                        <Label Text="{Binding Preço}" TextColor="Green" Padding="0,-5,0,0"/>
-                                        <Label Text="{Binding Telefone}" TextColor="Black" Padding="0,-5,0,0"/>
+                                    <StackLayout BackgroundColor="Transparent" Grid.Column="1" Grid.ColumnSpan="2" Padding="0,15,0,0">
+                                        <Label Text="{Binding Codigo}" TextColor="Black" FontAttributes="Bold" Grid.Row="0"/>
+                                        <Label Text="{Binding Descricao}" TextColor="Gray" Grid.Row="1"/>
+                                        <Label Text="{Binding Telefone}" TextColor="Black" Grid.Row="2"/>
                                     </StackLayout>
-                                    <Label Text="Hong Kong" TextColor="Black" FontAttributes="Italic" Padding="0,10,0,0" Grid.Column="4" Grid.Row="0"></Label>
-                                    <Label Text="29 abr" FontSize="13" Grid.Column="4" Grid.Row="1" Padding="29,0,0,0"></Label>
-                                    <Label Text="13 dias" TextColor="Black" Grid.Column="4" Grid.Row="2" Padding="20,0,0,0"></Label>
+                                    <StackLayout Grid.Column="4">
+                                        <Label Text="{Binding Servico}" TextColor="Black" FontSize="10" FontAttributes="Italic" Padding="0,15,0,0" Grid.Row="0"></Label>
+                                        <Label Text="s}" FontSize="13" Grid.Row="1" Padding="29,0,0,0"></Label>
+                                        <Label Text="{Binding Quantidade}" TextColor="Black" Grid.Row="2" Padding="20,0,0,0"></Label>
+                                    </StackLayout>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
@@ -41,5 +51,6 @@
             AbsoluteLayout.LayoutFlags="PositionProportional"  
             AbsoluteLayout.LayoutBounds=".95,.95,80,80" 
             Clicked="btnAdicionarEncomenda_Clicked"/>
-    </Grid>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>
