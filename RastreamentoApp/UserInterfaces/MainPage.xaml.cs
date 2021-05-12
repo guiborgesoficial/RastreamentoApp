@@ -12,8 +12,8 @@ namespace RastreamentoApp
 {
     public partial class MainPage : ContentPage
     {
-        private ObservableCollection<JsonRetorno.Encomendas> encomendas = new ObservableCollection<JsonRetorno.Encomendas>();
-        private ObservableCollection<JsonRetorno.Evento> eventos = new ObservableCollection<JsonRetorno.Evento>();
+        private ObservableCollection<JsonRetorno.Encomendas> ObsColListEncomendas = new ObservableCollection<JsonRetorno.Encomendas>();
+        private ObservableCollection<JsonRetorno.Evento> ObsColListEventos = new ObservableCollection<JsonRetorno.Evento>();
         public MainPage()
         {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace RastreamentoApp
             ContentPageAdicionarNovaEncomenda TelaAdicionarNovaEncomenda = new ContentPageAdicionarNovaEncomenda();
             Navigation.PushModalAsync(TelaAdicionarNovaEncomenda);
 
-            encomendas.Clear();
+            ObsColListEncomendas.Clear();
             ConsultandoEncomendasInTracks();
         }
 
@@ -56,21 +56,25 @@ namespace RastreamentoApp
         }
         private void ServiceEncomendas(JsonRetorno.Encomendas IresponseDeserializada)
         {
-            encomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos});
-            listviewEncomendasAddGeral.ItemsSource = encomendas;
+            ObsColListEncomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos});
+            listviewEncomendasAddGeral.ItemsSource = ObsColListEncomendas;
 
             for(int i = 0; i < IresponseDeserializada.Eventos.Count; i++)
             {
-                eventos.Add(new JsonRetorno.Evento { Data = IresponseDeserializada.Eventos[i].Data, Hora = IresponseDeserializada.Eventos[i].Hora, Local = IresponseDeserializada.Eventos[i].Local, Status = IresponseDeserializada.Eventos[i].Status, SubStatus = IresponseDeserializada.Eventos[i].SubStatus });
+                ObsColListEventos.Add(new JsonRetorno.Evento { Data = IresponseDeserializada.Eventos[i].Data, Hora = IresponseDeserializada.Eventos[i].Hora, Local = IresponseDeserializada.Eventos[i].Local, Status = IresponseDeserializada.Eventos[i].Status, SubStatus = IresponseDeserializada.Eventos[i].SubStatus });
             }
         }
         public void MaisInfo(object sender, EventArgs e)
         {
-            var mi = ((MenuItem)sender);
+            var itemSelect = ((MenuItem)sender);
 
             ContentPageEncomendaInfo TelaEncomendaInfo = new ContentPageEncomendaInfo();
+
+            TelaEncomendaInfo.ListEventos = ObsColListEventos;
+            TelaEncomendaInfo.ListEncomendas = ObsColListEncomendas;
+            TelaEncomendaInfo.RetornandoInfo();
+
             Navigation.PushModalAsync(TelaEncomendaInfo);
-            encomendas.Clear();
         }
 
         public void DeletarItem(object sender, EventArgs e)
@@ -78,7 +82,7 @@ namespace RastreamentoApp
             var itemSelect = ((MenuItem)sender);
 
             JsonRetorno.Encomendas item = ((JsonRetorno.Encomendas)itemSelect.CommandParameter);
-            encomendas.Remove(item);
+            ObsColListEncomendas.Remove(item);
 
             File.Delete("/storage/emulated/0/Android/data/com.companyname.rastreamentoapp/TRACKS/" + item.Codigo + ".json");
         }

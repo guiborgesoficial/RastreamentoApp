@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RastreamentoApp.Classes;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ namespace RastreamentoApp.UserInterfaces
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContentPageEncomendaInfo : ContentPage
     {
+        public ObservableCollection<JsonRetorno.Encomendas> ListEncomendas = new ObservableCollection<JsonRetorno.Encomendas>();
+        public ObservableCollection<JsonRetorno.Evento> ListEventos = new ObservableCollection<JsonRetorno.Evento>();
         public ContentPageEncomendaInfo()
         {
             InitializeComponent();
@@ -19,7 +23,15 @@ namespace RastreamentoApp.UserInterfaces
 
         private void btnVoltar_Clicked(object sender, EventArgs e)
         {
+            RetornandoInfo();
+        }
+        public void RetornandoInfo()
+        {
+            listviewEncomendasInfo.ItemsSource = ListEventos;
 
+            lblCódigoRastreio.BindingContext = ListEncomendas;
+            lblServiço.BindingContext = ListEncomendas;
+            lblDiasTrajeto.Text = ListEventos[0].Data;
         }
 
         private void btnCompartilhar_Clicked(object sender, EventArgs e)

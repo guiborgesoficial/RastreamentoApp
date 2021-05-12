@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RastreamentoApp.UserInterfaces.ContentPageEncomendaInfo">
+             x:Class="RastreamentoApp.UserInterfaces.ContentPageEncomendaInfo" Title="EncomendasInfo">
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
@@ -10,7 +10,7 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid BackgroundColor="Black">
+            <Grid BackgroundColor="RoyalBlue">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -45,15 +45,15 @@
                 />
             </Grid>
 
-            <Grid Grid.Row="1" BackgroundColor="Blue">
+            <Grid Grid.Row="1" BackgroundColor="DodgerBlue">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="90"></ColumnDefinition>
                     <ColumnDefinition Width="130"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Text="13 Dias" Padding="30,20,0,0" TextColor="White" Grid.Column="0"></Label>
-                <Label Text="LB12312AQSHK" Padding="20,20,0,0" TextColor="White" Grid.Column="1"></Label>
-                <Label Text="REMESSA INTERNACIONAL" Padding="20,10,0,0" TextColor="White" Grid.Column="2"></Label>
+                <Label x:Name="lblDiasTrajeto" Text="13 Dias" Padding="30,20,0,0" TextColor="White" Grid.Column="0"></Label>
+                <Label x:Name="lblCódigoRastreio" Text="{Binding Codigo}" Padding="20,20,0,0" TextColor="White" Grid.Column="1"></Label>
+                <Label x:Name="lblServiço" Text="{Binding Servico}" Padding="20,10,0,0" TextColor="White" Grid.Column="2"></Label>
             </Grid>
 
             <Grid Grid.Row="2">
@@ -64,17 +64,16 @@
                 </Grid.ColumnDefinitions>
                 
                 <ScrollView Grid.ColumnSpan="3">
-                    <ListView x:Name="listviewEncomendasInfo" BackgroundColor="White" RowHeight="100">
+                    <ListView x:Name="listviewEncomendasInfo" RowHeight="100" BackgroundColor="White">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Grid>
-                                        <Label Text="26 abr" Grid.Column="0" TextColor="Black"></Label>
-                                        <Label Text="17:01" Grid.Column="0" TextColor="Black"></Label>
-                                        <Label Text="Image" Grid.Column="1" TextColor="Black"></Label>
-                                        <Label Text="Status" Grid.Column="2" TextColor="Black"></Label>
-                                        <Label Text="de" Grid.Column="2" Grid.ColumnSpan="2" TextColor="Black"></Label>
-                                        <Label Text="para" Grid.Column="2" Grid.ColumnSpan="2" TextColor="Black"></Label>
+                                    <Grid Padding="20,0,0,0">
+                                        <Label Text="{Binding Data}" Grid.Column="0" TextColor="Black"></Label>
+                                        <Label Text="{Binding Hora}" Grid.Column="0" Padding="0,20,0,0" TextColor="Black"></Label>
+                                        <Label Text="{Binding Status}" Grid.Column="1" TextColor="Black"></Label>
+                                        <Label Text="{Binding Local}" Grid.Column="2" Grid.ColumnSpan="2" TextColor="Black"></Label>
+                                        <Label Text="{Binding SubStatus[0]}" Grid.Column="2" Grid.ColumnSpan="2" Padding="0,20,0,0" TextColor="Black"></Label>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>
@@ -82,7 +81,6 @@
                     </ListView>
                 </ScrollView>
             </Grid>
-            
         </Grid>
     </ContentPage.Content>
 </ContentPage>
