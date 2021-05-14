@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,15 +22,21 @@ namespace RastreamentoApp.UserInterfaces
 
         private void btnVoltar_Clicked(object sender, EventArgs e)
         {
-            RetornandoInfo();
+            this.Navigation.PopModalAsync();
         }
         public void RetornandoInfo()
         {
             listviewEncomendasInfo.ItemsSource = ListEventos;
 
-            lblCódigoRastreio.BindingContext = ListEncomendas;
-            lblServiço.BindingContext = ListEncomendas;
-            lblDiasTrajeto.Text = ListEventos[0].Data;
+            lblCódigoRastreio.Text = ListEncomendas[0].Codigo;
+            lblServiço.Text = ListEncomendas[0].Servico;
+            if(ListEncomendas[0].Entregue == true)
+            {
+                //DateTime dataPostagem = Convert.ToDateTime(ListEventos[ListEventos.Count].Data).Date;
+                DateTime dataEntrega = Convert.ToDateTime(ListEventos[0].Data).Date;
+                TimeSpan qtdDiasEntrega = dataEntrega.Subtract(dataPostagem);
+                lblDiasTrajeto.Text = qtdDiasEntrega.TotalDays.ToString();
+            }
         }
 
         private void btnCompartilhar_Clicked(object sender, EventArgs e)
@@ -41,7 +46,7 @@ namespace RastreamentoApp.UserInterfaces
 
         private void btnEditar_Clicked(object sender, EventArgs e)
         {
-
+            RetornandoInfo();
         }
     }
 }

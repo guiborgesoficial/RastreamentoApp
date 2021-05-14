@@ -26,6 +26,8 @@ namespace RastreamentoApp.Classes
 
             [JsonProperty("eventos")]
             public List<Evento> Eventos { get; set; }
+            [JsonProperty("Entregue")]
+            public bool Entregue { get; set; }
         }
         public partial class Evento
         {
@@ -43,6 +45,8 @@ namespace RastreamentoApp.Classes
 
             [JsonProperty("subStatus")]
             public List<string> SubStatus { get; set; }
+            [JsonProperty("Imagem")]
+            public string Imagem { get; set; }
         }
     }
 }

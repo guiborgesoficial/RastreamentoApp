@@ -14,6 +14,8 @@ namespace RastreamentoApp
     {
         private ObservableCollection<JsonRetorno.Encomendas> ObsColListEncomendas = new ObservableCollection<JsonRetorno.Encomendas>();
         private ObservableCollection<JsonRetorno.Evento> ObsColListEventos = new ObservableCollection<JsonRetorno.Evento>();
+        public bool boolFoiEntregue { get; set; }
+
         public MainPage()
         {
             InitializeComponent();
@@ -56,13 +58,44 @@ namespace RastreamentoApp
         }
         private void ServiceEncomendas(JsonRetorno.Encomendas IresponseDeserializada)
         {
-            ObsColListEncomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos});
-            listviewEncomendasAddGeral.ItemsSource = ObsColListEncomendas;
-
             for(int i = 0; i < IresponseDeserializada.Eventos.Count; i++)
             {
-                ObsColListEventos.Add(new JsonRetorno.Evento { Data = IresponseDeserializada.Eventos[i].Data, Hora = IresponseDeserializada.Eventos[i].Hora, Local = IresponseDeserializada.Eventos[i].Local, Status = IresponseDeserializada.Eventos[i].Status, SubStatus = IresponseDeserializada.Eventos[i].SubStatus });
+                ObsColListEventos.Add(new JsonRetorno.Evento { Data = IresponseDeserializada.Eventos[i].Data, Hora = IresponseDeserializada.Eventos[i].Hora, Local = IresponseDeserializada.Eventos[i].Local, Status = IresponseDeserializada.Eventos[i].Status, SubStatus = IresponseDeserializada.Eventos[i].SubStatus, Imagem = ImagemStatusEncomenda(IresponseDeserializada, i)});
             }
+            ObsColListEncomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos, Entregue = boolFoiEntregue });
+            listviewEncomendasAddGeral.ItemsSource = ObsColListEncomendas;
+        }
+        private string ImagemStatusEncomenda(JsonRetorno.Encomendas IresponseDeserializada, int x)
+        {            
+            for (int i = 0; i < IresponseDeserializada.Eventos.Count; i++)
+            {
+                if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ENTREGUE"))
+                {
+                    IresponseDeserializada.Eventos[i].Imagem = "entregue.png";
+                    boolFoiEntregue = true;
+                }
+                else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ENCAMINHADO"))
+                {
+                    IresponseDeserializada.Eventos[i].Imagem = "encaminhado.png";
+                    boolFoiEntregue = false;
+                }
+                else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("POSTADO"))
+                {
+                    IresponseDeserializada.Eventos[i].Imagem = "postado.png";
+                    boolFoiEntregue = false;
+                }
+                else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ADUANEIRA"))
+                {
+                    IresponseDeserializada.Eventos[i].Imagem = "fiscalizacaoAduaneira.png";
+                    boolFoiEntregue = false;
+                }
+                else
+                {
+                    IresponseDeserializada.Eventos[i].Imagem = "encaminhado.png";
+                    boolFoiEntregue = false;
+                }
+            }
+            return IresponseDeserializada.Eventos[x].Imagem;
         }
         public void MaisInfo(object sender, EventArgs e)
         {
