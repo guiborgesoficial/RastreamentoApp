@@ -58,11 +58,12 @@ namespace RastreamentoApp
         }
         private void ServiceEncomendas(JsonRetorno.Encomendas IresponseDeserializada)
         {
-            for(int i = 0; i < IresponseDeserializada.Eventos.Count; i++)
+            for (int i = 0; i < IresponseDeserializada.Eventos.Count; i++)
             {
                 ObsColListEventos.Add(new JsonRetorno.Evento { Data = IresponseDeserializada.Eventos[i].Data, Hora = IresponseDeserializada.Eventos[i].Hora, Local = IresponseDeserializada.Eventos[i].Local, Status = IresponseDeserializada.Eventos[i].Status, SubStatus = IresponseDeserializada.Eventos[i].SubStatus, Imagem = ImagemStatusEncomenda(IresponseDeserializada, i)});
             }
             ObsColListEncomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos, Entregue = boolFoiEntregue });
+
             listviewEncomendasAddGeral.ItemsSource = ObsColListEncomendas;
         }
         private string ImagemStatusEncomenda(JsonRetorno.Encomendas IresponseDeserializada, int x)
@@ -89,9 +90,14 @@ namespace RastreamentoApp
                     IresponseDeserializada.Eventos[i].Imagem = "fiscalizacaoAduaneira.png";
                     boolFoiEntregue = false;
                 }
+                else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ENTREGA"))
+                {
+                    IresponseDeserializada.Eventos[i].Imagem = "saiuParaEntrega.png";
+                    boolFoiEntregue = false;
+                }
                 else
                 {
-                    IresponseDeserializada.Eventos[i].Imagem = "encaminhado.png";
+                    IresponseDeserializada.Eventos[i].Imagem = "outros.png";
                     boolFoiEntregue = false;
                 }
             }

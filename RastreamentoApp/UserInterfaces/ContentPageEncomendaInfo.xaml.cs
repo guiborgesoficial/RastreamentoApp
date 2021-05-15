@@ -32,10 +32,26 @@ namespace RastreamentoApp.UserInterfaces
             lblServiço.Text = ListEncomendas[0].Servico;
             if(ListEncomendas[0].Entregue == true)
             {
-                //DateTime dataPostagem = Convert.ToDateTime(ListEventos[ListEventos.Count].Data).Date;
+                DateTime dataPostagem = Convert.ToDateTime(ListEventos[ListEventos.Count - 2].Data).Date;
                 DateTime dataEntrega = Convert.ToDateTime(ListEventos[0].Data).Date;
                 TimeSpan qtdDiasEntrega = dataEntrega.Subtract(dataPostagem);
-                lblDiasTrajeto.Text = qtdDiasEntrega.TotalDays.ToString();
+                lblDiasTrajeto.Text = qtdDiasEntrega.TotalDays.ToString() + "\bdias";
+            }
+            else
+            {
+                int index = 0; ;
+                if(ListEventos.Count >= 0 && ListEventos.Count <= 2)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    index = ListEventos.Count - 2;
+                }
+                DateTime dataPostagem = Convert.ToDateTime(ListEventos[index].Data).Date;
+                DateTime dataAtual = DateTime.Now;
+                TimeSpan qtdDiasEntrega = dataAtual.Subtract(dataPostagem);
+                lblDiasTrajeto.Text = qtdDiasEntrega.TotalDays.ToString() + "\bdias";
             }
         }
 

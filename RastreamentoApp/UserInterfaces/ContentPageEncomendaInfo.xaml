@@ -47,7 +47,7 @@
 
             <Grid Grid.Row="1" BackgroundColor="DodgerBlue">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="130"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
                     <ColumnDefinition Width="130"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -74,9 +74,9 @@
                                         <Image Source="{Binding Imagem}" Scale="0.5" Grid.Column="0"></Image>
                                         <Label Text="{Binding Data}" Grid.Column="0" Padding="10,15,0,0" TextColor="Black"></Label>
                                         <Label Text="{Binding Hora}" Grid.Column="0" Padding="25,0,0,0" TextColor="Black"></Label>
-                                        <Label Text="{Binding Status}" Grid.Column="1" Padding="0,20,0,0" TextColor="Black"></Label>
-                                        <Label Text="{Binding Local}" Grid.Column="2" Grid.ColumnSpan="2" Padding="0,20,0,0" TextColor="Black"></Label>
-                                        <Label Text="{Binding SubStatus[0]}" Grid.Column="2" Grid.ColumnSpan="2" Padding="0,40,0,0" TextColor="Black"></Label>
+                                        <Label Text="{Binding Status}" Grid.Column="1" Padding="0,30,0,0" TextColor="Black"></Label>
+                                        <Label Text="{Binding Local}" Grid.Column="2" Grid.ColumnSpan="2" Padding="0,30,0,0" TextColor="Black"></Label>
+                                        <Label Text="{Binding SubStatus[0]}" Grid.Column="2" Grid.ColumnSpan="2" Padding="0,50,0,0" TextColor="Black"></Label>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>
