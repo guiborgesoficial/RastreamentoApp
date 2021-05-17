@@ -27,6 +27,7 @@
             </StackLayout>
 
             <ScrollView Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Padding="0,8,0,0">
+
                 <ListView x:Name="listviewEncomendasAddGeral" RowHeight="100" BackgroundColor="White" IsPullToRefreshEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -40,7 +41,8 @@
                                         Text="Excluir" IsDestructive="True" />
                                 </ViewCell.ContextActions>
                                 <Grid>
-                                    <Image Source="{Binding Imagem}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
+                                    <Image Source="{Binding Eventos[0].Imagem}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
+
                                     <StackLayout BackgroundColor="Transparent" Grid.Column="1" Grid.ColumnSpan="2" Padding="0,15,0,0">
                                         <Label Text="{Binding Codigo}" TextColor="Black" FontAttributes="Bold" Grid.Row="0"/>
                                         <Label Text="{Binding Descricao}" TextColor="Gray" Grid.Row="1"/>

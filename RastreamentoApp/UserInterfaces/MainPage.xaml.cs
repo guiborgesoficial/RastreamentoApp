@@ -64,6 +64,7 @@ namespace RastreamentoApp
             }
             ObsColListEncomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos, Entregue = boolFoiEntregue });
 
+
             listviewEncomendasAddGeral.ItemsSource = ObsColListEncomendas;
         }
         private string ImagemStatusEncomenda(JsonRetorno.Encomendas IresponseDeserializada, int x)
