@@ -46,12 +46,12 @@
                                     <StackLayout BackgroundColor="Transparent" Grid.Column="1" Grid.ColumnSpan="2" Padding="0,15,0,0">
                                         <Label Text="{Binding Codigo}" TextColor="Black" FontAttributes="Bold" Grid.Row="0"/>
                                         <Label Text="{Binding Descricao}" TextColor="Gray" Grid.Row="1"/>
-                                        <Label Text="{Binding Telefone}" TextColor="Black" Grid.Row="2"/>
+                                        <Label Text="{Binding Eventos[0].Status}" Padding="0,-5,0,0" TextColor="Black" Grid.Row="2"/>
                                     </StackLayout>
                                     <StackLayout Grid.Column="4">
                                         <Label Text="{Binding Servico}" TextColor="Black" FontSize="10" FontAttributes="Italic" Padding="0,15,0,0" Grid.Row="0"></Label>
-                                        <Label Text="s}" FontSize="13" Grid.Row="1" Padding="29,0,0,0"></Label>
-                                        <Label Text="{Binding Quantidade}" TextColor="Black" Grid.Row="2" Padding="20,0,0,0"></Label>
+                                        <Label Text="{Binding Eventos[0].Data}" FontSize="13" Grid.Row="1" Padding="0,0,0,0"></Label>
+                                        <Label Text="{Binding Eventos[0].Hora}" TextColor="Black" Grid.Row="2" Padding="20,0,0,0"></Label>
                                     </StackLayout>
                                 </Grid>
                             </ViewCell>
