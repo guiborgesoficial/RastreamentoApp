@@ -32,7 +32,7 @@
                 Source="compartilharButton.png"
                 Scale="0.5"
                 BackgroundColor="Transparent"
-                Clicked="btnCompartilhar_Clicked"
+                Clicked="btnCompartilhar_ClickedAsync"
                 Grid.Column="6"
                 />
 

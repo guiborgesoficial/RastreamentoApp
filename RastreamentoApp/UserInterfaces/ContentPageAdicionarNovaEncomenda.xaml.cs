@@ -30,11 +30,20 @@ namespace RastreamentoApp.UserInterfaces
         {
             if (!string.IsNullOrEmpty(entryCodigoRastreio.Text) && entryCodigoRastreio.Text.Length == 13)
             {
-                GetJsonStringContent(entryCodigoRastreio.Text);
+                if(!string.IsNullOrEmpty(entryTelefone.Text) && entryTelefone.Text.Length == 13)
+                {
+                    GetJsonStringContent(entryCodigoRastreio.Text);
+                }
+                else
+                {
+                    entryTelefone.Text = string.Empty;
+                    entryTelefone.Placeholder = "Preencha o telefone corretamente";
+                    entryTelefone.PlaceholderColor = Color.Red;
+                }
             }
             else
             {
-                entryCodigoRastreio.Text = "";
+                entryCodigoRastreio.Text = string.Empty;
                 entryCodigoRastreio.Placeholder = "Preencha o código corretamente";
                 entryCodigoRastreio.PlaceholderColor = Color.Red;
             }

@@ -12,7 +12,7 @@
             <Label Text="Descrição" FontAttributes="Bold" FontSize="Medium" TextColor="RoyalBlue"></Label>
             <Entry x:Name="entryDescriçãoEncomenda" Placeholder="Produto 'X'"></Entry>
             <Label Text="Telefone" FontAttributes="Bold" FontSize="Medium" TextColor="RoyalBlue"></Label>
-            <Entry x:Name="entryTelefone" Placeholder="55 11 9999-9999" Keyboard="Numeric"></Entry>
+            <Entry x:Name="entryTelefone" Placeholder="+55119999-9999" Keyboard="Numeric"></Entry>
 
             <Grid>
                 <Label Grid.Column="0" Grid.Row="0" Text="Você também pode adicionar o valor da sua encomenda" Padding="35"></Label>

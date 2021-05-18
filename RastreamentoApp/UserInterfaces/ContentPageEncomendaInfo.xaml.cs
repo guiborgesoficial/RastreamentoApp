@@ -48,8 +48,16 @@ namespace RastreamentoApp.UserInterfaces
             }
         }
 
-        private void btnCompartilhar_Clicked(object sender, EventArgs e)
+        private async void btnCompartilhar_ClickedAsync(object sender, EventArgs e)
         {
+            try
+            {
+                Device.OpenUri(new Uri("whatsapp://send?phone=+" + ListEncomendas[0].Telefone));
+            }
+            catch (Exception erro)
+            {
+                await DisplayAlert("WhatsApp não instalado", erro.Message, "ok");
+            }
             RetornandoInfo();
         }
 
