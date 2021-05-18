@@ -30,39 +30,38 @@ namespace RastreamentoApp.UserInterfaces
 
             lblCódigoRastreio.Text = ListEncomendas[0].Codigo;
             lblServiço.Text = ListEncomendas[0].Servico;
-            if(ListEncomendas[0].Entregue == true)
+            if(ListEncomendas.First<JsonRetorno.Encomendas>().Entregue == true)
             {
-                DateTime dataPostagem = Convert.ToDateTime(ListEventos[ListEventos.Count - 2].Data).Date;
-                DateTime dataEntrega = Convert.ToDateTime(ListEventos[0].Data).Date;
+                DateTime dataPostagem = Convert.ToDateTime(ListEventos.Last<JsonRetorno.Evento>().Data).Date;
+                DateTime dataEntrega = Convert.ToDateTime(ListEventos.First<JsonRetorno.Evento>().Data).Date;
                 TimeSpan qtdDiasEntrega = dataEntrega.Subtract(dataPostagem);
-                lblDiasTrajeto.Text = qtdDiasEntrega.TotalDays.ToString() + "\bdias";
+                lblDiasTrajeto.Text = qtdDiasEntrega.Days.ToString() + "\bdias";
             }
             else
             {
-                int index = 0; ;
-                if(ListEventos.Count >= 0 && ListEventos.Count <= 2)
-                {
-                    index = 0;
-                }
-                else
-                {
-                    index = ListEventos.Count - 2;
-                }
-                DateTime dataPostagem = Convert.ToDateTime(ListEventos[index].Data).Date;
+                var primeiraData = ListEventos.Last<JsonRetorno.Evento>();
+                
+                DateTime dataPostagem = Convert.ToDateTime(primeiraData.Data).Date;
                 DateTime dataAtual = DateTime.Now;
                 TimeSpan qtdDiasEntrega = dataAtual.Subtract(dataPostagem);
-                lblDiasTrajeto.Text = qtdDiasEntrega.TotalDays.ToString() + "\bdias";
+                lblDiasTrajeto.Text = qtdDiasEntrega.Days.ToString() + "\bdias";
             }
         }
 
         private void btnCompartilhar_Clicked(object sender, EventArgs e)
         {
-
+            RetornandoInfo();
         }
 
         private void btnEditar_Clicked(object sender, EventArgs e)
         {
-            RetornandoInfo();
+            ContentPageAdicionarNovaEncomenda editarInfo = new ContentPageAdicionarNovaEncomenda();
+            editarInfo.entryPropCodigoRastreio = ListEncomendas[0].Codigo;
+            editarInfo.entryPropDescriçãoEncomenda = ListEncomendas[0].Descricao;
+            editarInfo.entryPropTelefone = ListEncomendas[0].Telefone;
+            editarInfo.entryPropValorEncomenda = ListEncomendas[0].Preço;
+            editarInfo.AtribuindoValorEntryParaEditarInfo();
+            Navigation.PushModalAsync(editarInfo);
         }
     }
 }

@@ -6,9 +6,7 @@
         <StackLayout Padding="19">
             <Label Text="Está quase!" FontAttributes="Bold" FontSize="Title" TextColor="RoyalBlue"></Label>
             <Label Text="Adicione sua encomenda para prosseguir" FontAttributes="Bold"></Label>
-            
-            
-
+ 
             <Label Text="Código" FontAttributes="Bold" FontSize="Medium" TextColor="RoyalBlue"></Label>
             <Entry x:Name="entryCodigoRastreio" Placeholder="LB0123456789HK" Focused="entryCodigoRastreio_Focused"></Entry>
             <Label Text="Descrição" FontAttributes="Bold" FontSize="Medium" TextColor="RoyalBlue"></Label>

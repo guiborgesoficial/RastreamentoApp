@@ -17,19 +17,20 @@ namespace RastreamentoApp.UserInterfaces
 {
     public partial class ContentPageAdicionarNovaEncomenda : ContentPage
     {
+        public string entryPropCodigoRastreio { get; set; }
+        public string entryPropDescriçãoEncomenda { get; set; }
+        public string entryPropTelefone { get; set; }
+        public string entryPropValorEncomenda { get; set; }
         public ContentPageAdicionarNovaEncomenda()
         {
             InitializeComponent();
         }
-        public string jsonStringContent;
 
         private void btnAdicionarEncomenda_Clicked(object sender, EventArgs e)
         {
-            //entry setado para não precisar digitar ao fazer testes
-
             if (!string.IsNullOrEmpty(entryCodigoRastreio.Text) && entryCodigoRastreio.Text.Length == 13)
             {
-                GetJsonStringContent();
+                GetJsonStringContent(entryCodigoRastreio.Text);
             }
             else
             {
@@ -38,9 +39,8 @@ namespace RastreamentoApp.UserInterfaces
                 entryCodigoRastreio.PlaceholderColor = Color.Red;
             }
         }
-        public async void GetJsonStringContent()
+        public async Task GetJsonStringContent(string codigoRastreio)
         {
-            string codigoRastreio = entryCodigoRastreio.Text;
             var client = new RestClient("https://api.linketrack.com/track/json?user=teste&token=1abcd00b2731640e886fb41a8a9671ad1434c599dbaa0a0de9a5aa619f29a83f&codigo=" + codigoRastreio);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -69,7 +69,7 @@ namespace RastreamentoApp.UserInterfaces
         {
             var localPasta = new LocalRootFolder();
             var pasta = localPasta.CreateFolder("TRACKS", CreationCollisionOption.OpenIfExists);
-            var arquivo = pasta.CreateFile(codigoRastreio + ".json", CreationCollisionOption.OpenIfExists);
+            var arquivo = pasta.CreateFile(codigoRastreio + ".json", CreationCollisionOption.ReplaceExisting);
 
             if (arquivo.Exists)
             {
@@ -79,6 +79,9 @@ namespace RastreamentoApp.UserInterfaces
                 
                 DisplayAlert("Concluído", "Sua encomenda foi adicionada", "OK");
                 this.Navigation.PopModalAsync();
+
+                MainPage refresh = new MainPage();
+                refresh.ConsultandoEncomendasInTracks();
             }
         }
         
@@ -98,6 +101,14 @@ namespace RastreamentoApp.UserInterfaces
         {
             entryCodigoRastreio.PlaceholderColor = Color.Gray;
             entryCodigoRastreio.Placeholder = "LB0123456789HK";
+        }
+        public void AtribuindoValorEntryParaEditarInfo()
+        {
+            entryCodigoRastreio.IsEnabled = false;
+            entryCodigoRastreio.Text = entryPropCodigoRastreio;
+            entryDescriçãoEncomenda.Text = entryPropDescriçãoEncomenda;
+            entryTelefone.Text = entryPropTelefone;
+            entryValorEncomenda.Text = entryPropValorEncomenda;
         }
     }
 }

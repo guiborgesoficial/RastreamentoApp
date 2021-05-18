@@ -28,7 +28,11 @@
 
             <ScrollView Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Padding="0,8,0,0">
 
-                <ListView x:Name="listviewEncomendasAddGeral" RowHeight="100" BackgroundColor="White" IsPullToRefreshEnabled="True">
+                <ListView x:Name="listviewEncomendasAddGeral" 
+                          RowHeight="100" BackgroundColor="White" 
+                          IsPullToRefreshEnabled="True"
+                          RefreshCommand="{Binding .}"
+                          Refreshing="listviewEncomendasAddGeral_Refreshing">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -49,7 +53,7 @@
                                         <Label Text="{Binding Eventos[0].Status}" Padding="0,-5,0,0" TextColor="Black" Grid.Row="2"/>
                                     </StackLayout>
                                     <StackLayout Grid.Column="4">
-                                        <Label Text="{Binding Servico}" TextColor="Black" FontSize="10" FontAttributes="Italic" Padding="0,15,0,0" Grid.Row="0"></Label>
+                                        <Label Text="{Binding Preço, StringFormat='VALOR: {0}'}" TextColor="Black" FontSize="10" FontAttributes="Bold" Padding="0,15,0,0" Grid.Row="0"></Label>
                                         <Label Text="{Binding Eventos[0].Data}" FontSize="13" Grid.Row="1" Padding="0,0,0,0"></Label>
                                         <Label Text="{Binding Eventos[0].Hora}" TextColor="Black" Grid.Row="2" Padding="20,0,0,0"></Label>
                                     </StackLayout>

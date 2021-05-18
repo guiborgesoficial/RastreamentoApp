@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace RastreamentoApp
@@ -14,7 +15,7 @@ namespace RastreamentoApp
     {
         private ObservableCollection<JsonRetorno.Encomendas> ObsColListEncomendas = new ObservableCollection<JsonRetorno.Encomendas>();
         private ObservableCollection<JsonRetorno.Evento> ObsColListEventos = new ObservableCollection<JsonRetorno.Evento>();
-        public bool boolFoiEntregue { get; set; }
+        public bool boolFoiEntregue { get; set; } = false;
 
         public MainPage()
         {
@@ -26,13 +27,14 @@ namespace RastreamentoApp
         {
             ContentPageAdicionarNovaEncomenda TelaAdicionarNovaEncomenda = new ContentPageAdicionarNovaEncomenda();
             Navigation.PushModalAsync(TelaAdicionarNovaEncomenda);
-
-            ObsColListEncomendas.Clear();
             ConsultandoEncomendasInTracks();
         }
 
-        private void ConsultandoEncomendasInTracks()
+        public async Task ConsultandoEncomendasInTracks()
         {
+            ObsColListEncomendas.Clear();
+            ObsColListEventos.Clear();
+
             bool existeDiretorio = Directory.Exists("/storage/emulated/0/Android/data/com.companyname.rastreamentoapp");
 
             if (existeDiretorio)
@@ -64,7 +66,6 @@ namespace RastreamentoApp
             }
             ObsColListEncomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos, Entregue = boolFoiEntregue });
 
-
             listviewEncomendasAddGeral.ItemsSource = ObsColListEncomendas;
         }
         private string ImagemStatusEncomenda(JsonRetorno.Encomendas IresponseDeserializada, int x)
@@ -79,27 +80,22 @@ namespace RastreamentoApp
                 else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ENCAMINHADO"))
                 {
                     IresponseDeserializada.Eventos[i].Imagem = "encaminhado.png";
-                    boolFoiEntregue = false;
                 }
                 else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("POSTADO"))
                 {
                     IresponseDeserializada.Eventos[i].Imagem = "postado.png";
-                    boolFoiEntregue = false;
                 }
                 else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ADUANEIRA"))
                 {
                     IresponseDeserializada.Eventos[i].Imagem = "fiscalizacaoAduaneira.png";
-                    boolFoiEntregue = false;
                 }
                 else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ENTREGA"))
                 {
                     IresponseDeserializada.Eventos[i].Imagem = "saiuParaEntrega.png";
-                    boolFoiEntregue = false;
                 }
                 else
                 {
                     IresponseDeserializada.Eventos[i].Imagem = "outros.png";
-                    boolFoiEntregue = false;
                 }
             }
             return IresponseDeserializada.Eventos[x].Imagem;
@@ -125,6 +121,18 @@ namespace RastreamentoApp
             ObsColListEncomendas.Remove(item);
 
             File.Delete("/storage/emulated/0/Android/data/com.companyname.rastreamentoapp/TRACKS/" + item.Codigo + ".json");
+        }
+
+        private async void listviewEncomendasAddGeral_Refreshing(object sender, EventArgs e)
+        {
+            ContentPageAdicionarNovaEncomenda refreshList = new ContentPageAdicionarNovaEncomenda();
+
+            for(int i = 0; i < ObsColListEncomendas.Count; i++)
+            {
+                await refreshList.GetJsonStringContent(ObsColListEncomendas[i].Codigo);
+            }
+            await ConsultandoEncomendasInTracks();
+            listviewEncomendasAddGeral.EndRefresh();
         }
     }
 }
