@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PCLExt.FileStorage;
 using PCLExt.FileStorage.Folders;
-using RastreamentoApp.Classes;
-using RastreamentoApp.UserInterfaces;
+using RastreamentoApp.Model;
 using RestSharp;
 using RestSharp.Serialization.Json;
 using System;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace RastreamentoApp.UserInterfaces
+namespace RastreamentoApp.View
 {
     public partial class ContentPageAdicionarNovaEncomenda : ContentPage
     {
@@ -55,7 +54,6 @@ namespace RastreamentoApp.UserInterfaces
             var request = new RestRequest(Method.GET);
             request.RequestFormat = DataFormat.Json;
             IRestResponse response = await client.ExecuteAsync(request);
-
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 DeserializerJsonStringContent(response, codigoRastreio);
@@ -64,12 +62,10 @@ namespace RastreamentoApp.UserInterfaces
         public void DeserializerJsonStringContent(IRestResponse Iresponse, string codigoRastreio)
         {
             var des = (JsonRetorno.Encomendas)Newtonsoft.Json.JsonConvert.DeserializeObject(Iresponse.Content, typeof(JsonRetorno.Encomendas));
-            JsonRetorno.Encomendas encomendasListView = new JsonRetorno.Encomendas();
-            JsonRetorno.Evento eventoListView = new JsonRetorno.Evento();
-
             des.Descricao = entryDescriçãoEncomenda.Text;
             des.Preço = entryValorEncomenda.Text;
             des.Telefone = entryTelefone.Text;
+            des.Eventos.RemoveAt(des.Eventos.Count - 1);
 
             var contentJson = JsonConvert.SerializeObject(des);
             SalvandoJsonLocalAsync(codigoRastreio, contentJson);
@@ -88,9 +84,6 @@ namespace RastreamentoApp.UserInterfaces
                 
                 DisplayAlert("Concluído", "Sua encomenda foi adicionada", "OK");
                 this.Navigation.PopModalAsync();
-
-                MainPage refresh = new MainPage();
-                refresh.ConsultandoEncomendasInTracks();
             }
         }
         

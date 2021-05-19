@@ -1,6 +1,6 @@
 ﻿using PCLExt.FileStorage.Folders;
-using RastreamentoApp.Classes;
-using RastreamentoApp.UserInterfaces;
+using RastreamentoApp.Model;
+using RastreamentoApp.View;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,6 @@ namespace RastreamentoApp
     public partial class MainPage : ContentPage
     {
         private ObservableCollection<JsonRetorno.Encomendas> ObsColListEncomendas = new ObservableCollection<JsonRetorno.Encomendas>();
-        private ObservableCollection<JsonRetorno.Evento> ObsColListEventos = new ObservableCollection<JsonRetorno.Evento>();
         public bool boolFoiEntregue { get; set; } = false;
 
         public MainPage()
@@ -33,8 +32,6 @@ namespace RastreamentoApp
         public async Task ConsultandoEncomendasInTracks()
         {
             ObsColListEncomendas.Clear();
-            ObsColListEventos.Clear();
-
             bool existeDiretorio = Directory.Exists("/storage/emulated/0/Android/data/com.companyname.rastreamentoapp");
 
             if (existeDiretorio)
@@ -60,15 +57,11 @@ namespace RastreamentoApp
         }
         private void ServiceEncomendas(JsonRetorno.Encomendas IresponseDeserializada)
         {
-            for (int i = 0; i < IresponseDeserializada.Eventos.Count; i++)
-            {
-                ObsColListEventos.Add(new JsonRetorno.Evento { Data = IresponseDeserializada.Eventos[i].Data, Hora = IresponseDeserializada.Eventos[i].Hora, Local = IresponseDeserializada.Eventos[i].Local, Status = IresponseDeserializada.Eventos[i].Status, SubStatus = IresponseDeserializada.Eventos[i].SubStatus, Imagem = ImagemStatusEncomenda(IresponseDeserializada, i)});
-            }
+            ImagemStatusEncomenda(IresponseDeserializada);
             ObsColListEncomendas.Add(new JsonRetorno.Encomendas() { Codigo = IresponseDeserializada.Codigo, Descricao = IresponseDeserializada.Descricao, Preço = IresponseDeserializada.Preço, Telefone = IresponseDeserializada.Telefone, Servico = IresponseDeserializada.Servico, Quantidade = IresponseDeserializada.Quantidade, Eventos = IresponseDeserializada.Eventos, Entregue = boolFoiEntregue });
-
             listviewEncomendasAddGeral.ItemsSource = ObsColListEncomendas;
         }
-        private string ImagemStatusEncomenda(JsonRetorno.Encomendas IresponseDeserializada, int x)
+        private string ImagemStatusEncomenda(JsonRetorno.Encomendas IresponseDeserializada)
         {            
             for (int i = 0; i < IresponseDeserializada.Eventos.Count; i++)
             {
@@ -77,37 +70,23 @@ namespace RastreamentoApp
                     IresponseDeserializada.Eventos[i].Imagem = "entregue.png";
                     boolFoiEntregue = true;
                 }
-                else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ENCAMINHADO"))
-                {
-                    IresponseDeserializada.Eventos[i].Imagem = "encaminhado.png";
-                }
-                else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("POSTADO"))
-                {
-                    IresponseDeserializada.Eventos[i].Imagem = "postado.png";
-                }
-                else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ADUANEIRA"))
-                {
-                    IresponseDeserializada.Eventos[i].Imagem = "fiscalizacaoAduaneira.png";
-                }
-                else if (IresponseDeserializada.Eventos[i].Status.ToUpper().Contains("ENTREGA"))
-                {
-                    IresponseDeserializada.Eventos[i].Imagem = "saiuParaEntrega.png";
-                }
                 else
                 {
                     IresponseDeserializada.Eventos[i].Imagem = "outros.png";
+                    boolFoiEntregue = false;
                 }
             }
-            return IresponseDeserializada.Eventos[x].Imagem;
+            return IresponseDeserializada.Eventos[0].Imagem;
         }
         public void MaisInfo(object sender, EventArgs e)
         {
             var itemSelect = ((MenuItem)sender);
+            JsonRetorno.Encomendas item = (JsonRetorno.Encomendas)itemSelect.CommandParameter;
+
+            int index = ObsColListEncomendas.IndexOf(item);
 
             ContentPageEncomendaInfo TelaEncomendaInfo = new ContentPageEncomendaInfo();
-
-            TelaEncomendaInfo.ListEventos = ObsColListEventos;
-            TelaEncomendaInfo.ListEncomendas = ObsColListEncomendas;
+            TelaEncomendaInfo.ListEncomendas = ObsColListEncomendas[index];
             TelaEncomendaInfo.RetornandoInfo();
 
             Navigation.PushModalAsync(TelaEncomendaInfo);
@@ -116,10 +95,8 @@ namespace RastreamentoApp
         public void DeletarItem(object sender, EventArgs e)
         {
             var itemSelect = ((MenuItem)sender);
-
             JsonRetorno.Encomendas item = ((JsonRetorno.Encomendas)itemSelect.CommandParameter);
             ObsColListEncomendas.Remove(item);
-
             File.Delete("/storage/emulated/0/Android/data/com.companyname.rastreamentoapp/TRACKS/" + item.Codigo + ".json");
         }
 
@@ -129,6 +106,10 @@ namespace RastreamentoApp
 
             for(int i = 0; i < ObsColListEncomendas.Count; i++)
             {
+                refreshList.entryPropDescriçãoEncomenda = ObsColListEncomendas[0].Descricao;
+                refreshList.entryPropTelefone = ObsColListEncomendas[0].Telefone;
+                refreshList.entryPropValorEncomenda = ObsColListEncomendas[0].Preço;
+                refreshList.AtribuindoValorEntryParaEditarInfo();
                 await refreshList.GetJsonStringContent(ObsColListEncomendas[i].Codigo);
             }
             await ConsultandoEncomendasInTracks();

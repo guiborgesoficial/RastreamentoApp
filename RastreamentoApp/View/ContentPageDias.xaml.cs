@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace RastreamentoApp.UserInterfaces
+namespace RastreamentoApp.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContentPageDias : ContentPage

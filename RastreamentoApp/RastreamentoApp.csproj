@@ -38,7 +38,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="UserInterfaces\ContentPageAdicionarNovaEncomenda.xaml.cs">
+    <Compile Update="View\ContentPageAdicionarNovaEncomenda.xaml.cs">
       <DependentUpon>ContentPageAdicionarNovaEncomenda.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -48,16 +48,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="UserInterfaces\ContentPageAdicionarNovaEncomenda.xaml">
+    <EmbeddedResource Update="View\ContentPageAdicionarNovaEncomenda.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UserInterfaces\ContentPageDias.xaml">
+    <EmbeddedResource Update="View\ContentPageDias.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UserInterfaces\ContentPageEncomendaInfo.xaml">
+    <EmbeddedResource Update="View\ContentPageEncomendaInfo.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UserInterfaces\ContentPageIntegracoes.xaml">
+    <EmbeddedResource Update="View\ContentPageIntegracoes.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

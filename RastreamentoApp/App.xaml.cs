@@ -1,4 +1,4 @@
-﻿using RastreamentoApp.UserInterfaces;
+﻿using RastreamentoApp.View;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

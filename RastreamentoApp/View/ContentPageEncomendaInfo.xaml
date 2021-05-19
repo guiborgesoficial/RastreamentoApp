@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RastreamentoApp.UserInterfaces.ContentPageEncomendaInfo" Title="EncomendasInfo">
+             x:Class="RastreamentoApp.View.ContentPageEncomendaInfo" Title="EncomendasInfo">
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
@@ -31,7 +31,7 @@
                 <ImageButton x:Name="btnCompartilhar" 
                 Source="compartilharButton.png"
                 Scale="0.5"
-                BackgroundColor="Transparent"
+                BackgroundColor="RoyalBlue"
                 Clicked="btnCompartilhar_ClickedAsync"
                 Grid.Column="6"
                 />
@@ -39,7 +39,7 @@
                 <ImageButton x:Name="btnEditar" 
                 Source="editarButton.png"
                 Scale="0.5"
-                BackgroundColor="Transparent"
+                BackgroundColor="RoyalBlue"
                 Clicked="btnEditar_Clicked"
                 Grid.Column="7"
                 />
