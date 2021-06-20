@@ -4,30 +4,24 @@
              x:Class="RastreamentoApp.MainPage" Title="ENCOMENDAS">
 
     <ContentPage.Content>
-        <Grid>
+        <Grid RowSpacing="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition Height="110"></RowDefinition>
-                <RowDefinition Height="110"></RowDefinition>
-                <RowDefinition Height="110"></RowDefinition>
-                <RowDefinition Height="110"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="120"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
-            <StackLayout Grid.Row="0" Grid.ColumnSpan="4" Padding="5,5,5,0">
+
+            <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Padding="5,5,5,0">
                 <Frame BackgroundColor="LightGray" CornerRadius="45" IsClippedToBounds="true" Padding="-9">
                     <SearchBar x:Name="btnProcurarEncomendasLista"  Placeholder="Procurar" BackgroundColor="LightGray"></SearchBar>
                 </Frame>
             </StackLayout>
 
-            <ScrollView Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Padding="0,8,0,0">
-
+            <ScrollView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                 <ListView x:Name="listviewEncomendasAddGeral" 
                           RowHeight="100" BackgroundColor="White" 
                           IsPullToRefreshEnabled="True"
@@ -64,10 +58,8 @@
                 </ListView>
             </ScrollView>
             <ImageButton x:Name="btnAdicionarEncomenda" 
-            Grid.Row="5" Grid.Column="3" Scale="0.9" Source="plusButton.png" 
+            Grid.Row="2" Grid.Column="1" VerticalOptions="Start" Source="plusButton.png" 
             BackgroundColor="Transparent"
-            AbsoluteLayout.LayoutFlags="PositionProportional"  
-            AbsoluteLayout.LayoutBounds=".95,.95,80,80" 
             Clicked="btnAdicionarEncomenda_Clicked"/>
         </Grid>
     </ContentPage.Content>

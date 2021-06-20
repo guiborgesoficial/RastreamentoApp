@@ -72,16 +72,16 @@ namespace RastreamentoApp.View
 
             lblCódigoRastreio.Text = ListEncomendas.Codigo;
             lblServiço.Text = ListEncomendas.Servico;
-            if(ListEncomendas.Entregue == false)
+            if(ListEncomendas.Entregue == true)
             {
-                DateTime dataPostagem = Convert.ToDateTime(ListEventos[0].Data).Date;
-                DateTime dataEntrega = Convert.ToDateTime(ListEventos[0].Data).Date;
+                DateTime dataPostagem = Convert.ToDateTime(ListEventos.Last<JsonRetorno.Evento>().Data).Date;
+                DateTime dataEntrega = Convert.ToDateTime(ListEventos.First<JsonRetorno.Evento>().Data).Date;
                 TimeSpan qtdDiasEntrega = dataEntrega.Subtract(dataPostagem);
                 lblDiasTrajeto.Text = qtdDiasEntrega.TotalDays.ToString() + "\bdias";
             }
             else
             {                
-                DateTime dataPostagem = Convert.ToDateTime(ListEventos[0].Data).Date;
+                DateTime dataPostagem = Convert.ToDateTime(ListEventos.Last<JsonRetorno.Evento>().Data);
                 DateTime dataAtual = DateTime.Now;
                 TimeSpan qtdDiasEntrega = dataAtual.Subtract(dataPostagem);
                 lblDiasTrajeto.Text = qtdDiasEntrega.Days.ToString() + "\bdias";
